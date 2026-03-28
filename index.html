@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lew Projects — AI Systems & Operations Automation</title>
+<meta name="description" content="Practical AI systems and operations automation for businesses managing too much complexity. Clarity, structure, and useful automation.">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  /* Brand board colors */
+  --bg-primary: #111315;
+  --bg-surface: #1B2127;
+  --bg-muted: #161A1F;
+  --bg-hover: #20262D;
+  --text-primary: #E7E4DE;
+  --text-secondary: #A5ADB5;
+  --text-muted: #6E7A85;
+  --brand: #6E8296;
+  --accent-teal: #3C8F8A;
+  --accent-warm: #A88A5A;
+  --border: #2A3138;
+  --border-light: #343D47;
+
+  /* Typography */
+  --font-display: 'Source Serif 4', Georgia, serif;
+  --font-body: 'Inter', -apple-system, sans-serif;
+
+  --max-width: 1060px;
+  --section-gap: 120px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-body);
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: rgba(60, 143, 138, 0.3);
+  color: var(--text-primary);
+}
+
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 28px;
+}
+
+/* ─── TOPBAR ─── */
+.topbar {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 20px 0;
+  background: rgba(17, 19, 21, 0.9);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-bottom: 1px solid transparent;
+  transition: all 0.3s ease;
+}
+.topbar.scrolled {
+  padding: 14px 0;
+  border-bottom-color: var(--border);
+}
+.topbar .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.topbar-logo {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  text-decoration: none;
+  letter-spacing: -0.01em;
+}
+.topbar-logo span {
+  color: var(--brand);
+  font-weight: 400;
+}
+.topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+.topbar-link {
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  text-decoration: none;
+  letter-spacing: 0.01em;
+  transition: color 0.2s;
+}
+.topbar-link:hover { color: var(--text-primary); }
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 22px;
+  background: var(--brand);
+  color: var(--bg-primary);
+  text-decoration: none;
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  border-radius: 3px;
+  transition: all 0.2s ease;
+}
+.btn-primary:hover {
+  background: var(--accent-teal);
+  transform: translateY(-1px);
+}
+.btn-primary svg { width: 14px; height: 14px; }
+
+/* ─── HERO ─── */
+.hero {
+  padding: 180px 0 var(--section-gap);
+  position: relative;
+}
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 80px;
+  align-items: start;
+}
+.hero-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--brand);
+  margin-bottom: 28px;
+  opacity: 0;
+  animation: fadeUp 0.5s ease forwards;
+}
+.hero-label::before {
+  content: '';
+  width: 24px;
+  height: 1px;
+  background: var(--brand);
+}
+.hero h1 {
+  font-family: var(--font-display);
+  font-size: clamp(2.4rem, 4.8vw, 3.4rem);
+  font-weight: 400;
+  line-height: 1.18;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+  max-width: 600px;
+  margin-bottom: 24px;
+  opacity: 0;
+  animation: fadeUp 0.5s ease 0.08s forwards;
+}
+.hero h1 em {
+  font-style: italic;
+  color: var(--accent-teal);
+}
+.hero-sub {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  max-width: 480px;
+  line-height: 1.7;
+  margin-bottom: 36px;
+  opacity: 0;
+  animation: fadeUp 0.5s ease 0.16s forwards;
+}
+.hero-actions {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  opacity: 0;
+  animation: fadeUp 0.5s ease 0.24s forwards;
+}
+.btn-hero {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 32px;
+  background: var(--brand);
+  color: var(--bg-primary);
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  border-radius: 3px;
+  transition: all 0.25s ease;
+}
+.btn-hero:hover {
+  background: var(--accent-teal);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px rgba(60, 143, 138, 0.15);
+}
+.btn-hero svg { width: 15px; height: 15px; }
+.btn-ghost {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  text-decoration: none;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border);
+  transition: all 0.2s;
+}
+.btn-ghost:hover { color: var(--text-primary); border-color: var(--text-secondary); }
+
+/* Hero sidebar stats */
+.hero-aside {
+  padding-top: 60px;
+  opacity: 0;
+  animation: fadeUp 0.5s ease 0.32s forwards;
+}
+.hero-stat {
+  padding: 20px 0;
+  border-bottom: 1px solid var(--border);
+}
+.hero-stat:first-child { border-top: 1px solid var(--border); }
+.hero-stat-value {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  font-weight: 400;
+  color: var(--text-primary);
+  margin-bottom: 2px;
+}
+.hero-stat-value span { color: var(--accent-teal); }
+.hero-stat-label {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  letter-spacing: 0.02em;
+}
+
+/* ─── DIVIDER ─── */
+.divider {
+  width: 100%;
+  height: 1px;
+  background: var(--border);
+}
+
+/* ─── PROBLEM ─── */
+.problem {
+  padding: var(--section-gap) 0;
+}
+.problem-inner {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 60px;
+  align-items: start;
+}
+.section-label {
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  padding-top: 8px;
+}
+.problem-text {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  line-height: 1.55;
+  color: var(--text-secondary);
+  max-width: 640px;
+}
+.problem-text strong {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+/* ─── SERVICES ─── */
+.services {
+  padding: 0 0 var(--section-gap);
+}
+.section-header {
+  margin-bottom: 52px;
+}
+.section-number {
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 14px;
+}
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 3vw, 2.4rem);
+  font-weight: 400;
+  letter-spacing: -0.015em;
+  color: var(--text-primary);
+}
+.section-title em { font-style: italic; color: var(--brand); }
+
+.tiers {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+.tier {
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 36px 28px;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.25s ease;
+  position: relative;
+}
+.tier:hover {
+  border-color: var(--border-light);
+  background: var(--bg-hover);
+  transform: translateY(-2px);
+}
+.tier-featured { border-color: var(--brand); }
+.tier-featured:hover { border-color: var(--accent-teal); }
+.tier-badge {
+  position: absolute;
+  top: -10px;
+  left: 28px;
+  background: var(--brand);
+  color: var(--bg-primary);
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 3px 10px;
+  border-radius: 2px;
+}
+.tier-name {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 10px;
+}
+.tier h3 {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-weight: 400;
+  margin-bottom: 6px;
+  color: var(--text-primary);
+}
+.tier-price {
+  font-size: 0.88rem;
+  color: var(--accent-teal);
+  font-weight: 500;
+  margin-bottom: 18px;
+}
+.tier-desc {
+  color: var(--text-secondary);
+  font-size: 0.87rem;
+  line-height: 1.65;
+  margin-bottom: 24px;
+  flex-grow: 1;
+}
+.tier-includes {
+  list-style: none;
+  padding-top: 18px;
+  border-top: 1px solid var(--border);
+}
+.tier-includes li {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  padding: 6px 0;
+  padding-left: 18px;
+  position: relative;
+}
+.tier-includes li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 13px;
+  width: 8px;
+  height: 1px;
+  background: var(--brand);
+}
+
+/* ─── PROCESS ─── */
+.process {
+  padding: 0 0 var(--section-gap);
+}
+.process-steps {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2px;
+}
+.process-step {
+  background: var(--bg-surface);
+  padding: 32px 24px;
+  position: relative;
+  transition: background 0.2s;
+}
+.process-step:first-child { border-radius: 6px 0 0 6px; }
+.process-step:last-child { border-radius: 0 6px 6px 0; }
+.process-step:hover { background: var(--bg-hover); }
+.step-num {
+  font-family: var(--font-display);
+  font-size: 1.8rem;
+  color: var(--border-light);
+  margin-bottom: 14px;
+  line-height: 1;
+}
+.step-title {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+}
+.step-desc {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  line-height: 1.55;
+}
+
+/* ─── PROOF / CASE STUDIES ─── */
+.proof {
+  padding: 0 0 var(--section-gap);
+}
+.cases {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+.case {
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 32px 26px;
+  transition: all 0.25s ease;
+}
+.case:hover {
+  border-color: var(--border-light);
+  transform: translateY(-2px);
+}
+.case-industry {
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--brand);
+  margin-bottom: 14px;
+}
+.case h4 {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 400;
+  margin-bottom: 6px;
+  line-height: 1.3;
+  color: var(--text-primary);
+}
+.case-stat {
+  font-size: 0.82rem;
+  color: var(--accent-teal);
+  font-weight: 500;
+  margin-bottom: 14px;
+}
+.case p {
+  font-size: 0.84rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+/* ─── ABOUT ─── */
+.about {
+  padding: 0 0 var(--section-gap);
+}
+.about-inner {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 60px;
+  align-items: start;
+}
+.about-content h3 {
+  font-family: var(--font-display);
+  font-size: 1.65rem;
+  font-weight: 400;
+  margin-bottom: 18px;
+  color: var(--text-primary);
+}
+.about-content p {
+  color: var(--text-secondary);
+  font-size: 0.92rem;
+  line-height: 1.7;
+  margin-bottom: 14px;
+  max-width: 560px;
+}
+.about-creds {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 24px;
+}
+.cred {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  padding: 8px 14px;
+  border: 1px solid var(--border);
+  border-radius: 3px;
+}
+.cred-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--brand);
+  flex-shrink: 0;
+}
+.cred-link {
+  text-decoration: none;
+  color: var(--text-muted);
+  transition: border-color 0.2s, color 0.2s;
+}
+.cred-link:hover {
+  border-color: var(--brand);
+  color: var(--text-secondary);
+}
+.cred-link svg { flex-shrink: 0; }
+
+/* ─── FINAL CTA ─── */
+.final-cta {
+  padding: 0 0 120px;
+}
+.cta-box {
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 72px 40px;
+  text-align: center;
+}
+.cta-box h2 {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 3vw, 2.4rem);
+  font-weight: 400;
+  letter-spacing: -0.015em;
+  margin-bottom: 14px;
+  color: var(--text-primary);
+}
+.cta-box p {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  line-height: 1.65;
+  margin-bottom: 32px;
+  max-width: 440px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.cta-box .btn-hero { opacity: 1; animation: none; }
+
+/* ─── FOOTER ─── */
+.footer {
+  padding: 28px 0;
+  border-top: 1px solid var(--border);
+}
+.footer .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.footer p {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+.footer a {
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.footer a:hover { color: var(--text-secondary); }
+.footer-links {
+  display: flex;
+  gap: 20px;
+}
+
+/* ─── ANIMATIONS ─── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 960px) {
+  :root { --section-gap: 80px; }
+  .hero-grid { grid-template-columns: 1fr; gap: 40px; }
+  .hero-aside { padding-top: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
+  .hero-stat { border-top: 1px solid var(--border); }
+  .tiers { grid-template-columns: repeat(2, 1fr); }
+  .cases { grid-template-columns: 1fr; }
+  .process-steps { grid-template-columns: repeat(2, 1fr); }
+  .process-step:first-child { border-radius: 6px 0 0 0; }
+  .process-step:nth-child(2) { border-radius: 0 6px 0 0; }
+  .process-step:nth-child(3) { border-radius: 0 0 0 6px; }
+  .process-step:last-child { border-radius: 0 0 6px 0; }
+  .problem-inner, .about-inner {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}
+
+@media (max-width: 600px) {
+  :root { --section-gap: 60px; }
+  .hero { padding-top: 130px; }
+  .hero-aside { grid-template-columns: 1fr; }
+  .process-steps { grid-template-columns: 1fr; }
+  .process-step { border-radius: 0 !important; }
+  .process-step:first-child { border-radius: 6px 6px 0 0 !important; }
+  .process-step:last-child { border-radius: 0 0 6px 6px !important; }
+  .hero-actions { flex-direction: column; align-items: flex-start; }
+  .topbar-link { display: none; }
+  .footer .container { flex-direction: column; gap: 8px; }
+  .tier { padding: 28px 22px; }
+}
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<nav class="topbar" id="topbar">
+  <div class="container">
+    <a href="#" class="topbar-logo">LEW Projects<span> ·</span></a>
+    <div class="topbar-right">
+      <a href="#services" class="topbar-link">Services</a>
+      <a href="#work" class="topbar-link">Work</a>
+      <a href="#about" class="topbar-link">About</a>
+      <a href="https://cal.com/lewprojects/discovery-call" class="btn-primary" target="_blank" rel="noopener">Book a Call <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-grid">
+      <div>
+        <div class="hero-label">AI that actually works for your business.</div>
+        <h1>I build the systems that turn complexity into <em>clarity.</em></h1>
+        <p class="hero-sub">I design and build the workflows, automations, and operational systems that reduce chaos, organize information, and let you focus on the work that matters.</p>
+        <div class="hero-actions">
+          <a href="https://cal.com/lewprojects/discovery-call" class="btn-hero" target="_blank" rel="noopener">Book a Discovery Call <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
+          <a href="#work" class="btn-ghost">See recent work</a>
+        </div>
+      </div>
+      <aside class="hero-aside">
+        <div class="hero-stat">
+          <div class="hero-stat-value">80<span>%</span></div>
+          <div class="hero-stat-label">Avg. reduction in manual processing</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-value">6</div>
+          <div class="hero-stat-label">Build days to deliver a 4-week roadmap</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-value">10<span>+</span></div>
+          <div class="hero-stat-label">Years leading operations & systems</div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- PROBLEM -->
+<section class="problem">
+  <div class="container">
+    <div class="divider"></div>
+    <div class="problem-inner reveal" style="padding-top: 56px;">
+      <div class="section-label">The Problem</div>
+      <div class="problem-text">
+        Your business has outgrown its processes. Your team is copying data between spreadsheets, chasing emails, repeating the same steps every week. <strong>You know it's costing you money and attention. You don't have the time or the person to fix it.</strong>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="container">
+    <div class="divider"></div>
+    <div class="section-header reveal" style="padding-top: 56px;">
+      <div class="section-number">01 — Services</div>
+      <h2 class="section-title">Four ways to <em>work together.</em></h2>
+    </div>
+    <div class="tiers">
+      <div class="tier reveal">
+        <div class="tier-name">Audit</div>
+        <h3>Operations Roadmap</h3>
+        <div class="tier-price">$2,500 – $5,000</div>
+        <p class="tier-desc">I spend a week inside your workflows and hand you back a prioritized roadmap: what to automate, what tools to consolidate, where you're losing the most time and money.</p>
+        <ul class="tier-includes">
+          <li>Full workflow and tool audit</li>
+          <li>Pain point inventory</li>
+          <li>Prioritized automation plan</li>
+          <li>Tool stack recommendations</li>
+          <li>Delivered in 5–7 business days</li>
+        </ul>
+      </div>
+      <div class="tier reveal">
+        <div class="tier-name">Quick Deploy</div>
+        <h3>Solve One Problem</h3>
+        <div class="tier-price">$3,500 – $7,500</div>
+        <p class="tier-desc">You know exactly what's broken. I scope it, build it, and hand it back working — one automation, one workflow, one system. No audit, no roadmap. Just the fix.</p>
+        <ul class="tier-includes">
+          <li>Single workflow or automation build</li>
+          <li>Scoping call to define deliverable</li>
+          <li>Working system with documentation</li>
+          <li>2–3 week delivery</li>
+          <li>Can expand into full build later</li>
+        </ul>
+      </div>
+      <div class="tier tier-featured reveal">
+        <div class="tier-badge">Most Common</div>
+        <div class="tier-name">Build</div>
+        <h3>Systems Implementation</h3>
+        <div class="tier-price">$7,500 – $20,000</div>
+        <p class="tier-desc">I take the highest-impact items from the roadmap and build them. CRM configuration, workflow automation, AI-assisted processes, tool consolidation. Delivered working and tested.</p>
+        <ul class="tier-includes">
+          <li>Everything in the Audit</li>
+          <li>3–5 custom automations built</li>
+          <li>CRM and tool configuration</li>
+          <li>Team training and documentation</li>
+          <li>4–8 week delivery</li>
+        </ul>
+      </div>
+      <div class="tier reveal">
+        <div class="tier-name">Retain</div>
+        <h3>Ongoing Operations</h3>
+        <div class="tier-price">$1,500 – $4,000 /mo</div>
+        <p class="tier-desc">Your systems keep running and keep improving. You have someone to call when something breaks, when needs change, or when the next thing needs to be built.</p>
+        <ul class="tier-includes">
+          <li>System monitoring and maintenance</li>
+          <li>Incremental automation builds</li>
+          <li>Priority response</li>
+          <li>Monthly optimization reviews</li>
+          <li>Cancel anytime</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="process">
+  <div class="container">
+    <div class="divider"></div>
+    <div class="section-header reveal" style="padding-top: 56px;">
+      <div class="section-number">02 — Process</div>
+      <h2 class="section-title">How an engagement works.</h2>
+    </div>
+    <div class="process-steps reveal">
+      <div class="process-step">
+        <div class="step-num">01</div>
+        <div class="step-title">Discovery Call</div>
+        <div class="step-desc">30 minutes. You describe the pain. I tell you honestly whether I can help.</div>
+      </div>
+      <div class="process-step">
+        <div class="step-num">02</div>
+        <div class="step-title">Operations Audit</div>
+        <div class="step-desc">I map your workflows, tools, and bottlenecks. You receive a prioritized roadmap.</div>
+      </div>
+      <div class="process-step">
+        <div class="step-num">03</div>
+        <div class="step-title">Systems Build</div>
+        <div class="step-desc">I build the automations, configure the tools, and deliver working systems with documentation.</div>
+      </div>
+      <div class="process-step">
+        <div class="step-num">04</div>
+        <div class="step-title">Handoff or Retain</div>
+        <div class="step-desc">You take ownership, or I stay on retainer to maintain and expand.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROOF -->
+<section class="proof" id="work">
+  <div class="container">
+    <div class="divider"></div>
+    <div class="section-header reveal" style="padding-top: 56px;">
+      <div class="section-number">03 — Recent Work</div>
+      <h2 class="section-title">Systems I've built.</h2>
+    </div>
+    <div class="cases">
+      <div class="case reveal">
+        <div class="case-industry">Professional Speaker</div>
+        <h4>AI Operations System</h4>
+        <div class="case-stat">Replaced $6K/month in assistant costs</div>
+        <p>Complete AI chief of staff: CRM pipeline, outreach automation, daily briefings, contract generation, travel prep, content management. 4-week roadmap delivered in 6 build days. 10 of 12 automations live.</p>
+      </div>
+      <div class="case reveal">
+        <div class="case-industry">Industrial B2B Sales</div>
+        <h4>Technical Knowledge System</h4>
+        <div class="case-stat">Onboarding target: 6 months → 3 months</div>
+        <p>AI-assisted knowledge system for a sales team inheriting product lines from a retiring expert. Staged rollout from single-product pilot to full catalog with guardrails and escalation rules.</p>
+      </div>
+      <div class="case reveal">
+        <div class="case-industry">Education — 300+ Students</div>
+        <h4>Operations Automation</h4>
+        <div class="case-stat">80% reduction in processing time</div>
+        <p>Automated admissions, academic probation workflows, and promotion processing. Digitized paper-based systems with SQL, Python, and SharePoint. Built audit-compliant documentation and SOPs.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="container">
+    <div class="divider"></div>
+    <div class="about-inner reveal" style="padding-top: 56px;">
+      <div class="section-label">About</div>
+      <div class="about-content">
+        <h3>Lance Williams, PMP</h3>
+        <p>I've spent the last decade building systems for organizations that outgrew their processes — from a 300-student language school to a national speaker's entire operation. I don't advise. I build.</p>
+        <p>Every engagement starts with understanding how your business actually runs, not how a software vendor thinks it should. The tools I use — automation platforms, AI, CRMs, custom integrations — are selected to fit your workflows, not the other way around.</p>
+        <p>I use AI where it helps and constrain it where it doesn't. If a spreadsheet solves the problem, I'll tell you. If an AI system saves your team 20 hours a week, I'll build it and prove it.</p>
+        <div class="about-creds">
+          <div class="cred"><span class="cred-dot"></span>PMP Certified</div>
+          <div class="cred"><span class="cred-dot"></span>Google Data Analytics Professional</div>
+          <div class="cred"><span class="cred-dot"></span>10+ Years Operations</div>
+          <a href="https://www.credly.com/users/lance-williams.5fc76c6e/badges" target="_blank" rel="noopener" class="cred cred-link"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" stroke="var(--brand)" stroke-width="1.5"/><path d="M8 4v4.5L10.5 10" stroke="var(--brand)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Credly Badges</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final-cta" id="book">
+  <div class="container">
+    <div class="cta-box reveal">
+      <h2>Let's fix what's slowing you down.</h2>
+      <p>Not sure what you need yet? The first conversation is free. I'll tell you honestly whether I can help and what it would take.</p>
+      <a href="https://cal.com/lewprojects/discovery-call" class="btn-hero" target="_blank" rel="noopener">Book a Discovery Call <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg></a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <p>&copy; 2026 LEW Projects</p>
+    <div class="footer-links">
+      <a href="mailto:lance@lewprojects.com">Email</a>
+      <a href="https://www.linkedin.com/in/lanceericwilliams/" target="_blank" rel="noopener">LinkedIn</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Topbar scroll behavior
+const topbar = document.getElementById('topbar');
+window.addEventListener('scroll', () => {
+  topbar.classList.toggle('scrolled', window.scrollY > 40);
+}, { passive: true });
+
+// Reveal on scroll
+const reveals = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.12, rootMargin: '0px 0px -30px 0px' });
+reveals.forEach(el => observer.observe(el));
+
+// Stagger card animations
+document.querySelectorAll('.tiers .tier, .cases .case').forEach((el, i) => {
+  el.style.transitionDelay = `${i * 0.08}s`;
+});
+
+// Smooth scroll for anchor links
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', (e) => {
+    const target = document.querySelector(a.getAttribute('href'));
+    if (target) {
+      e.preventDefault();
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+});
+</script>
+
+</body>
+</html>
